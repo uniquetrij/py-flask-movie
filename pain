@@ -1,8 +1,8 @@
-Flask
-Flask-Cors
-Flask-RESTful
-opencv-python
+Flask==1.0.2
+Flask-Cors==3.0.7
+Flask-RESTful==0.3.7
+opencv-python==4.0.0.21
 
-git+git://github.com/uniquetrij/py-pipe@release
-git+git://github.com/uniquetrij/py-flask-movie@release
+git+git://github.com/uniquetrij/py-pipe@v0.0.1
+git+git://github.com/uniquetrij/py-flask-movie@v0.0.1
 
