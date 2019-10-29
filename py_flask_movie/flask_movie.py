@@ -7,9 +7,13 @@ from flask_cors import CORS
 
 class FlaskMovie:
 
-    def __init__(self, app=None):
+    def __init__(self, app=None, bp=None):
         if not app:
             app = Flask(__name__)
+        if not bp:
+            bp = Blueprint('flask_movie', __name__, template_folder='../templates')
+
+        self.__bp = bp
         self.__app = app
         self.__routes_pipe = {}
         self.__routes_no_feed_img = {}
@@ -17,7 +21,7 @@ class FlaskMovie:
         self.__routes_allow_flush = {}
         CORS(app)
 
-        @self.__app.route('/<route>')
+        @self.__bp.route('/<route>')
         def video_feed(route):
             return Response(self.__generate(self.__routes_pipe[route], self.__routes_no_feed_img[route],
                                             self.__routes_timeout[route], self.__routes_allow_flush[route]),
@@ -48,5 +52,6 @@ class FlaskMovie:
         self.__routes_timeout[route] = timeout
         self.__routes_allow_flush[route] = allow_flush
 
-    def start(self, bind_ip, bind_port):
+    def start(self, bind_ip, bind_port, prefix=''):
+        self.__app.register_blueprint(self.__bp, url_prefix=prefix)
         Thread(target=self.__app.run, args=(bind_ip, bind_port,)).start()
