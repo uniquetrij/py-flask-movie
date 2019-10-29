@@ -1,7 +1,7 @@
 from threading import Thread
 
 import cv2
-from flask import Flask, Response
+from flask import Flask, Response, Blueprint
 from flask_cors import CORS
 
 
