@@ -12,7 +12,8 @@ setup(
         'opencv-python',
         'Flask',
         'Flask-Cors',
-        'Flask-RESTful',
+        'imageio',
+        'pillow',
         'py_pipe' if pip.__version__ < '19.0' else '',
     ],
     dependency_links=[
