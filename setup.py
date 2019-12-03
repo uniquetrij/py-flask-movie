@@ -3,7 +3,7 @@ import pip
 
 setup(
     name='py_flask_movie',
-    version='0.0.1',
+    version='0.0.2',
     description="A video streaming library over http using flask",
     url='https://github.com/uniquetrij/py-flask-movie',
     author='Trijeet Modak',
