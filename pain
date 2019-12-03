@@ -1,8 +1,9 @@
-Flask==1.0.2
-Flask-Cors==3.0.7
-Flask-RESTful==0.3.7
-opencv-python==4.0.0.21
+Flask==1.1.1
+Flask-Cors==3.0.8
+opencv-python==4.1.2.30
+imageio==2.6.1
+pillow==6.2.1
 
-git+https://github.com/uniquetrij/py-pipe@v0.0.1
-git+https://github.com/uniquetrij/py-flask-movie@v0.0.1
+git+git://github.com/uniquetrij/py-pipe@v0.0.1
+git+https://github.com/uniquetrij/py-flask-movie@v0.0.2
 
