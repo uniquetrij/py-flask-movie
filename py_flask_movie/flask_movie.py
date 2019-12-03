@@ -1,9 +1,19 @@
-from threading import Thread
+import io
 
-import cv2
 from flask import Flask, Response, Blueprint
 from flask_cors import CORS
+from threading import Thread
 
+try:
+    import cv2
+    using_cv2 = True
+except:
+    using_cv2 = False
+    try:
+        from PIL import Image
+
+    except:
+        raise Exception("either CV2 or PIL packages must be available")
 
 class FlaskMovie:
 
@@ -34,8 +44,17 @@ class FlaskMovie:
                 ret, image = pipe.pull(allow_flush)
                 if not ret:
                     image = no_feed_img
+
+                if not using_cv2:
+                    image = Image.fromarray(image)
+                    byteIO = io.BytesIO()
+                    image.save(byteIO, format='JPEG')
+                    byteArr = byteIO.getvalue()
+                else:
+                    byteArr = cv2.imencode('.jpg', image)[1].tostring()
+
                 yield (b'--frame\r\n'
-                       b'Content-Type: image/jpeg\r\n\r\n' + cv2.imencode('.jpg', image)[1].tostring() + b'\r\n')
+                       b'Content-Type: image/jpeg\r\n\r\n' + byteArr + b'\r\n')
 
             except GeneratorExit as ex:
                 print(ex)
